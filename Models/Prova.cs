@@ -18,5 +18,7 @@ namespace simulador_periodos_academicos.Models
         [Column("id_materia")]
         public int MateriaId { get; set; }
         public virtual Materia Materia { get; set; }
+
+        public List<AlunoProva> Avaliacoes { get; set; }
     }
 }

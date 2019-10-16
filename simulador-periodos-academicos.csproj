@@ -134,6 +134,7 @@
     <Compile Include="Models\Aluno.cs" />
     <Compile Include="Models\AlunoMateria.cs" />
     <Compile Include="Models\AlunoProva.cs" />
+    <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\Materia.cs" />
     <Compile Include="Models\Prova.cs" />
     <Compile Include="Models\Turma.cs" />

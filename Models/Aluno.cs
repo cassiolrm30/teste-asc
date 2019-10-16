@@ -15,5 +15,6 @@ namespace simulador_periodos_academicos.Models
         public string Nome { get; set; }
 
         public List<AlunoMateria> Matriculas { get; set; }
+        public List<AlunoProva> Avaliacoes { get; set; }
     }
 }
