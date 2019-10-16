@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simulador-periodos-academicos", "simulador-periodos-academicos.csproj", "{B2661D52-A7D0-49D8-8301-45BEBEFFED45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2661D52-A7D0-49D8-8301-45BEBEFFED45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2661D52-A7D0-49D8-8301-45BEBEFFED45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2661D52-A7D0-49D8-8301-45BEBEFFED45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2661D52-A7D0-49D8-8301-45BEBEFFED45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30A252B7-499F-48C6-B905-F4055D7EC992}
+	EndGlobalSection
+EndGlobal
