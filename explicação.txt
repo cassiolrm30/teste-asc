@@ -1,0 +1,12 @@
+1. Rodar o projeto;
+2. Clicar no link "Simulação";
+3. Selecionar um aluno;
+4. Visualizar as informações de matérias em que o aluno selecionado está matriculado;
+5. Em cada matéria:
+   5.1. Preencher os campos de notas em cada matéria;
+   5.2. Quando os campos de notas de "Prova 1",  "Prova 2" e "Prova 3" estiverem preenchidos, será calculada a média ponderada, cujo valor será exibido ao lado do rótulo "Média";
+   5.3. Caso o valor da média ponderada esteja entre 4,0 e 6,0, o campo da "Prova Final" será habilitado; caso contrário, a média final será justamente a média ponderada;
+   5.4. Preencher o campo de nota da "Prova Final", caso o mesmo esteja habilitado;
+   5.5. Será calculada a média final da matéria, cujo valor será exibido ao lado do rótulo "Média Final", e estará em cor azul caso o valor seja maior ou igual a 5,0; caso contrário, o mesmo estará em cor vermelha;
+6. Visualizar no final da tela o rótulo "Situação", cujo valor será "APROVADO", em cor azul, caso o aluno esteja aprovado em pelo menos 60% da quantidade de matérias; caso contrário, o valor será "REPROVADO", em cor vermelha.
+

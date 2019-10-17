@@ -21,6 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Alunos", "Index", "Home")</li>
                     <li>@Html.ActionLink("Matérias", "Index", "Home")</li>
                     <li>@Html.ActionLink("Turmas", "Index", "Home")</li>
                     <li>@Html.ActionLink("Simulação", "SimulacaoMedias", "Home")</li>
@@ -80,7 +81,7 @@
             pesoTotal += peso;
         }
         var media_ponderada = (soma / pesoTotal).toFixed(1);
-        $("#divMedia-" + id_materia).html(media_ponderada);
+        $("#divMedia-" + id_materia).html(media_ponderada.replace(".", ","));
         if (media_ponderada >= 4 && media_ponderada <= 6)
         {
             $("#cboNotaPF-" + id_materia).prop("disabled", false);
@@ -88,7 +89,7 @@
         else
         {
             $("#cboNotaPF-" + id_materia).prop("disabled", true);
-            $("#divMediaFinal-" + id_materia).html(media_ponderada);
+            $("#divMediaFinal-" + id_materia).html(media_ponderada.replace(".", ","));
             $("#divMediaFinal-" + id_materia).css("color", ((media_ponderada >= 4) ? "blue" : "red"));
         }
         DefinirSituacaoAluno();
@@ -99,19 +100,23 @@
         if ($("#cboNotaPF-" + id_materia).prop("disabled") == false)
         {
             var media_final = "";
-            var media_ponderada = parseFloat($("#divMedia-" + id_materia).html());
-            if (media_ponderada < 4 || media_ponderada > 6)
+            var media_ponderada = parseFloat($("#divMedia-" + id_materia).html().replace(",", "."));
+            if (media_ponderada < 4.0 || media_ponderada > 6.0)
             {
                 $("#cboNotaPF-" + id_materia).prop("disabled", true);
-                $("#divMediaFinal-" + id_materia).html(media_final);
+                $("#divMediaFinal-" + id_materia).html(media_final.replace(".", ","));
                 $("#divMediaFinal-" + id_materia).css("color", ((media_ponderada >= 4) ? "blue" : "red"));
             }
             else
             {
-                var prova_final = parseFloat($("#cboNotaPF-" + id_materia).val());
-                media_final = ((media_ponderada + prova_final) / 2).toFixed(1);
+                var prova_final = parseFloat($("#cboNotaPF-" + id_materia).val().replace(",", "."));
+                media_final = ((media_ponderada + prova_final) / 2);
                 $("#divMediaFinal-" + id_materia).html(media_final);
-                $("#divMediaFinal-" + id_materia).css("color", ((media_final >= 5) ? "blue" : "red"));
+                if ($("#divMediaFinal-" + id_materia).html().length == 1)   // em caso de um valor de apenas 1 algarismo, sem casa decimal
+                    $("#divMediaFinal-" + id_materia).html($("#divMediaFinal-" + id_materia).html() + ",0");
+                else
+                    $("#divMediaFinal-" + id_materia).html($("#divMediaFinal-" + id_materia).html().replace(".", ","));
+                $("#divMediaFinal-" + id_materia).css("color", ((media_final >= 5.0) ? "blue" : "red"));
             }
             DefinirSituacaoAluno();
         }
@@ -225,7 +230,7 @@
                             tabela += "<td style='padding:10px;' colspan='5'><label style='font-weight:bold;'>Nome: " + nome + "</label></td>";
                             tabela += "</tr>";
                             tabela += "<tr style='background-color:silver;border:solid 2px;border-color:black;height:30px;'>";
-                            tabela += "<td style='width:25%;'><label style='font-weight:bold;'>Provas</label></td>";
+                            tabela += "<td style='width:25%;'><label style='font-weight:bold;padding-left:5px;'>Provas</label></td>";
                             tabela += "<td style='width:15%;'><label style='font-weight:bold;'>Peso</label></td>";
                             tabela += "<td style='width:15%;'><label style='font-weight:bold;'>Nota</label></td>";
                             tabela += "<td style='width:25%;text-align:center;'><label style='font-weight:bold;'>Peso x Nota</label></td>";
@@ -233,7 +238,7 @@
                             for (var j = 2; j <= 4; j++)
                             {
                                 tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
-                                tabela += "<td style='width:20%;'><label style='font-weight:bold;'>Prova 1</label></td>";
+                                tabela += "<td style='width:20%;'><label style='font-weight:bold;padding-left:5px;'>Prova " + (j - 1) + "</label></td>";
                                 tabela += "<td style=''><div id='divPeso-" + id + "-" + j + "'>" + item[j] + "</div></td>";
                                 tabela += "<td style=''><select id='cboNota-" + id + "-" + j + "' style='width:70px;' onchange='CalcularNotaPorPeso(" + id + ");'>";
                                 for (var k = 0; k <= 100; k++)
@@ -255,14 +260,14 @@
                             tabela += "<td style='text-align:center;'><label style='font-weight:bold;'><div id='divMedia-" + id + "'></label></td>";
                             tabela += "</tr>";
                             tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
-                            tabela += "<td style='width:20%;'><label style='font-weight:bold;'>Prova Final</label></td>";
+                            tabela += "<td style='width:20%;'><label style='font-weight:bold;padding-left:5px;'>Prova Final</label></td>";
                             tabela += "<td style=''></td>";
                             tabela += "<td style=''><select id='cboNotaPF-" + id + "' style='width:70px;' maxlength='4' disabled onchange='CalcularNotaFinal(" + id + ");'>";
                             tabela += "<option value='' selected></option>";
                             for (var k = 0; k <= 100; k++)
                             {
                                 var valorNota = (parseFloat(k) / 10).toFixed(1);
-                                tabela += "<option value='" + valorNota + "'>" + valorNota + "</option>";
+                                tabela += "<option value='" + valorNota + "'>" + valorNota.replace(".", ",") + "</option>";
                             }
                             tabela += "</select></td>";
                             tabela += "<td></td>";
