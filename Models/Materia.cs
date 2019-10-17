@@ -15,7 +15,7 @@ namespace simulador_periodos_academicos.Models
         [Column("nome")]
         public string Nome { get; set; }
 
-        public List<AlunoMateria> Matriculas { get; set; }
+        public List<Matricula> Matriculas { get; set; }
         public List<Prova> Provas { get; set; }
     }
 }

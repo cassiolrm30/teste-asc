@@ -12,7 +12,7 @@ namespace simulador_periodos_academicos.Models
         public DbSet<Turma> Turmas { get; set; }
         public DbSet<Materia> Materias { get; set; }
         public DbSet<Prova> Provas { get; set; }
-        public DbSet<AlunoMateria> Matriculas { get; set; }
-        public DbSet<AlunoProva> Avaliacoes { get; set; }
+        public DbSet<Matricula> Matriculas { get; set; }
+        public DbSet<Avaliacao> Avaliacoes { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Web;
 namespace simulador_periodos_academicos.Models
 {
     [Table("alunoprova")]
-    public class AlunoProva
+    public class Avaliacao
     {
         public int Id { get; set; }
 

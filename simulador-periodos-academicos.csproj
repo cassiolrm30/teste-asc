@@ -133,8 +133,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Aluno.cs" />
-    <Compile Include="Models\AlunoMateria.cs" />
-    <Compile Include="Models\AlunoProva.cs" />
+    <Compile Include="Models\Matricula.cs" />
+    <Compile Include="Models\Avaliacao.cs" />
     <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\Materia.cs" />
     <Compile Include="Models\Prova.cs" />
@@ -177,11 +177,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Materia\Index.cshtml" />
     <Content Include="Views\Materia\Cadastro.cshtml" />
+    <Content Include="Views\Home\SimulacaoMedias.cshtml" />
+    <Content Include="Views\Home\DetalhesNotasAluno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

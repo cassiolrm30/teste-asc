@@ -11,10 +11,19 @@ namespace simulador_periodos_academicos.Models
     {
         [Column("id")]
         public int Id { get; set; }
+
         [Column("codigo")]
         public int Codigo { get; set; }
+
         [Column("qtd_alunos")]
         public int QtdAlunos { get; set; }
-        public List<AlunoMateria> Matriculas { get; set; }
+
+        [Column("ano")]
+        public int Ano { get; set; }
+
+        [Column("periodo")]
+        public int Periodo { get; set; }
+
+        public List<Aluno> Alunos { get; set; }
     }
 }

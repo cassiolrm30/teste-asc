@@ -171,3 +171,4 @@ C:\Users\Cassio\source\repos\teste-asc\obj\Debug\simulador-periodos-academicos.c
 C:\Users\Cassio\source\repos\teste-asc\obj\Debug\simulador-periodos-academicos.csproj.CopyComplete
 C:\Users\Cassio\source\repos\teste-asc\obj\Debug\simulador-periodos-academicos.dll
 C:\Users\Cassio\source\repos\teste-asc\obj\Debug\simulador-periodos-academicos.pdb
+C:\Users\Cassio\source\repos\teste-asc\obj\Debug\simulador-periodos-academicos.csprojAssemblyReference.cache

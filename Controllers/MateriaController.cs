@@ -1,20 +1,31 @@
-﻿using System.Web.Mvc;
+﻿using simulador_periodos_academicos.Models;
+using simulador_periodos_academicos.Repositories;
+using System.Web.Mvc;
 
 namespace simulador_periodos_academicos.Controllers
 {
     public class MateriaController : Controller
     {
+        public readonly MateriaRepositorio _repositorio;
+
+        public MateriaController(MateriaRepositorio repositorio)
+        {
+            _repositorio = repositorio;
+        }
+
         public ActionResult Index()
         {
             ViewBag.Titulo = "Listagem de Matérias";
-            return Json(new { resultado = "" });
+            return View();
         }
 
-        public ActionResult Cadastro(int? id)
+        public ActionResult Cadastro(int id)
         {
             ViewBag.Titulo = "Cadastro de Matéria";
-            ViewBag.Id = id;
-            return Json(new { nome = "" });
+            Materia materia = new Materia();
+            if (id != 0)
+                materia = _repositorio.Get(id);
+            return View(materia);
         }
     }
 }

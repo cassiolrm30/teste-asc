@@ -7,7 +7,7 @@ using System.Web;
 namespace simulador_periodos_academicos.Models
 {
     [Table("alunomateria")]
-    public class AlunoMateria
+    public class Matricula
     {
         [Column("id")]
         public int Id { get; set; }
@@ -19,9 +19,5 @@ namespace simulador_periodos_academicos.Models
         [Column("id_materia")]
         public int MateriaId { get; set; }
         public virtual Materia Materia { get; set; }
-
-        [Column("id_turma")]
-        public int TurmaId { get; set; }
-        public virtual Turma Turma { get; set; }
     }
 }

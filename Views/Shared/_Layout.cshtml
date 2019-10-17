@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Matérias", "Index", "Materia")</li>
                     <li>@Html.ActionLink("Turmas", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Simulação", "About", "Home")</li>
+                    <li>@Html.ActionLink("Simulação", "SimulacaoMedias", "Home")</li>
                 </ul>
             </div>
         </div>
@@ -38,5 +38,242 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+    var alunos = [];
+    var materias = [];
+    var qtdMaterias = 0;
+    var percentualMinimo = 0.6;
+
+    function ListarAlunos()
+    {
+        alunos.push("1|Aluno 1");
+        alunos.push("2|Aluno 2");
+        for (var i = 0; i < alunos.length; i++)
+        {
+            var dados = alunos[i].split('|');
+            $("#cboAlunos").append(new Option(dados[1].toUpperCase(), dados[0]));
+        }
+    }
+
+    function CalcularNotaPorPeso(id_materia)
+    {
+        var soma = 0;
+        var pesoTotal = 0;
+        $("#divMediaFinal-" + id_materia).html("");
+        for (var i = 2; i <= 4; i++)
+        {
+            var peso = parseFloat($("#divPeso-" + id_materia + "-" + i).html());
+            var nota = ($("#cboNota-" + id_materia + "-" + i).val() == "") ? 0 : parseFloat($("#cboNota-" + id_materia + "-" + i).val());
+            var produto = peso * nota;
+            $("#divPesoNota-" + id_materia + "-" + i).html(produto.toFixed(1).replace(".",","));
+            soma += produto;
+            pesoTotal += peso;
+        }
+        var media_ponderada = (soma / pesoTotal).toFixed(1);
+        $("#divMedia-" + id_materia).html(media_ponderada);
+        if (media_ponderada >= 4 && media_ponderada <= 6)
+        {
+            $("#cboNotaPF-" + id_materia).prop("disabled", false);
+        }
+        else
+        {
+            $("#cboNotaPF-" + id_materia).prop("disabled", true);
+            $("#divMediaFinal-" + id_materia).html(media_ponderada);
+            $("#divMediaFinal-" + id_materia).css("color", ((media_ponderada >= 4) ? "blue" : "red"));
+        }
+        DefinirSituacaoAluno();
+    }
+
+    function CalcularNotaFinal(id_materia)
+    {
+        if ($("#cboNotaPF-" + id_materia).prop("disabled") == false)
+        {
+            var media_final = "";
+            var media_ponderada = parseFloat($("#divMedia-" + id_materia).html());
+            if (media_ponderada < 4 || media_ponderada > 6)
+            {
+                $("#cboNotaPF-" + id_materia).prop("disabled", true);
+                $("#divMediaFinal-" + id_materia).html(media_final);
+                $("#divMediaFinal-" + id_materia).css("color", ((media_ponderada >= 4) ? "blue" : "red"));
+            }
+            else
+            {
+                var prova_final = parseFloat($("#cboNotaPF-" + id_materia).val());
+                media_final = ((media_ponderada + prova_final) / 2).toFixed(1);
+                $("#divMediaFinal-" + id_materia).html(media_final);
+                $("#divMediaFinal-" + id_materia).css("color", ((media_final >= 5) ? "blue" : "red"));
+            }
+            DefinirSituacaoAluno();
+        }
+    }
+
+    function DefinirSituacaoAluno()
+    {
+        if (qtdMaterias != 0)
+        {
+            var valorSituacao, fonteSituacao;
+            var qtdBoasMedias = 0;
+            $("div").each(function (index, element)
+            {
+                if (element.id.indexOf("divMediaFinal-") != -1 && parseFloat(element.innerHTML) >= 5)
+                    qtdBoasMedias++;
+            });
+            var percentual = (qtdBoasMedias / qtdMaterias);
+            $("#lblRotuloSituacao").text("Situação: ");
+            if (percentual.toFixed(1) >= percentualMinimo)
+            {
+                valorSituacao = "APROVADO";
+                fonteSituacao = "blue";
+            }
+            else
+            {
+                valorSituacao = "REPROVADO";
+                fonteSituacao = "red";
+            }
+            $("#lblValorSituacao").text(valorSituacao);
+            $("#lblValorSituacao").css("color", fonteSituacao);
+        }
+    }
+
+    function ExibirDetalhesNotasAluno()
+    {
+        window.location.href = "/Home/DetalhesNotasAluno?alunoId=" + $("#hidAluno").val();
+    }
+
+    function DetalhesNotasAluno(id)
+    {
+        var corpo = "";
+        var detalhes = [];
+        var nomeAluno = "SDFSDF";
+        var turmaAluno = "SDFSDF";
+        detalhes.push("MATEMÁTICA|1|10|1|10|1|10|1|10|blue|APROVADO");
+        detalhes.push("PORTUGUÊS|1|10|1|10|1|10|1|10|blue|APROVADO");
+        detalhes.push("FÍSICA|1|10|1|10|1|10|1|10|blue|APROVADO");
+        detalhes.push("QUÍMICA|1|10|1|10|1|10|1|10|blue|APROVADO");
+        detalhes.push("HISTÓRIA|1|10|1|10|1|10|1|10|red|REPROVADO");
+        detalhes.push("RELIGIÃO|1|10|1|10|1|10|1|10|blue|APROVADO");
+        detalhes.push("EDUCAÇÃO FÍSICA|1|10|1|10|1|10|1|10|blue|APROVADO");
+        for (var i = 0; i < detalhes.length; i++)
+        {
+            var item = detalhes[i].split('|');
+            corpo += "<tr style='height:25px;'>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;height:20px;'>" + item[0] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;width:5%;'>" + item[1] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;width:5%;'>" + item[2] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;width:5%;'>" + item[3] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;width:5%;'>" + item[4] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;width:5%;'>" + item[5] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;width:5%;'>" + item[6] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;width:5%;'>" + item[7] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;width:5%;'>" + item[8] + "</td>";
+            corpo += "<td style='text-align:center;vertical-align:middle;font-size:12px;color:" + item[9] + ";'>" + item[10] + "</td>";
+            corpo += "</tr>";
+        }
+        $("#divNomeAluno").html("Nome: " + nomeAluno);
+        $("#divTurmaAluno").append("Turma: " + turmaAluno);
+        $("#tabela_detalhes").append(corpo);
+    }
+
+    function ListarMaterias(id_aluno)
+    {
+        $("#divMateria").html("");
+        if (id_aluno == "")
+        {
+            $("#hidAluno").val("");
+            $("#divDetalhesAluno").css("visibility", "hidden");
+            $("#fldMaterias").css("visibility", "hidden");
+            $("#divSituacao").css("visibility", "hidden");
+        }
+        else
+        {
+            $("#hidAluno").val(id_aluno);
+            $("#divDetalhesAluno").css("visibility", "visible");
+            $("#fldMaterias").css("visibility", "visible");
+            $("#divSituacao").css("visibility", "visible");
+            materias.push("1|Matéria 1|1|1.5|2");
+            materias.push("2|Matéria 2|1|2|1");
+            materias.push("3|Matéria 3|1|1|2");
+            qtdMaterias = materias.length;
+            for (var i = 0; i < materias.length; i++)
+            {
+                var item = materias[i].split('|');
+                var id = item[0];
+                var nome = item[1].toUpperCase();
+                var tabela = "";
+                tabela += "<table style='width:100%;padding:2px;' cellspacing='0' cellpadding='0' border='0'>";
+                tabela += "<tr>";
+                tabela += "<td style='padding:10px;' colspan='5'><label style='font-weight:bold;'>Nome: " + nome + "</label></td>";
+                tabela += "</tr>";
+                tabela += "<tr style='background-color:silver;border:solid 2px;border-color:black;height:30px;'>";
+                tabela += "<td style='width:25%;'><label style='font-weight:bold;'>Provas</label></td>";
+                tabela += "<td style='width:15%;'><label style='font-weight:bold;'>Peso</label></td>";
+                tabela += "<td style='width:15%;'><label style='font-weight:bold;'>Nota</label></td>";
+                tabela += "<td style='width:25%;text-align:center;'><label style='font-weight:bold;'>Peso x Nota</label></td>";
+                tabela += "</tr>";
+                for (var j = 2; j <= 4; j++)
+                {
+                    tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
+                    tabela += "<td style='width:20%;'><label style='font-weight:bold;'>Prova 1</label></td>";
+                    tabela += "<td style=''><div id='divPeso-" + id + "-" + j + "'>" + item[j] + "</div></td>";
+                    tabela += "<td style=''><select id='cboNota-" + id + "-" + j + "' style='width:70px;' onchange='CalcularNotaPorPeso(" + id + ");'>";
+                    for (var k = 0; k <= 100; k++)
+                    {
+                        var valorNota = (parseFloat(k) / 10).toFixed(1);
+                        tabela += "<option value='" + valorNota + "'>" + valorNota.replace(".",",") + "</option>";
+                    }
+                    tabela += "</select></td>";
+                    tabela += "<td style='text-align:center;'><div id='divPesoNota-" + id + "-" + j + "'></div></td>";
+                    tabela += "</tr>";
+                }
+                tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
+                tabela += "<td colspan='5'></td>";
+                tabela += "</tr>";
+                tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
+                tabela += "<td style='width:20%;'></td>";
+                tabela += "<td style=''></td>";
+                tabela += "<td style='text-align:right;'><label style='font-weight:bold;'>Média :</label></td>";
+                tabela += "<td style='text-align:center;'><label style='font-weight:bold;'><div id='divMedia-" + id + "'></label></td>";
+                tabela += "</tr>";
+                tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
+                tabela += "<td style='width:20%;'><label style='font-weight:bold;'>Prova Final</label></td>";
+                tabela += "<td style=''></td>";
+                tabela += "<td style=''><select id='cboNotaPF-" + id + "' style='width:70px;' maxlength='4' disabled onchange='CalcularNotaFinal(" + id + ");'>";
+                tabela += "<option value='' selected></option>";
+                for (var k = 0; k <= 100; k++)
+                {
+                    var valorNota = (parseFloat(k) / 10).toFixed(1);
+                    tabela += "<option value='" + valorNota + "'>" + valorNota + "</option>";
+                }
+                tabela += "</select></td>";
+                tabela += "<td></td>";
+                tabela += "</tr>";
+                tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
+                tabela += "<td colspan='5'></td>";
+                tabela += "</tr>";
+                tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
+                tabela += "<td style='width:20%;'></td>";
+                tabela += "<td style=''></td>";
+                tabela += "<td style='text-align:right;'><label style='font-weight:bold;'>Média Final:</label></td>";
+                tabela += "<td style='text-align:center;'><label style='font-weight:bold;'><div id='divMediaFinal-" + id + "'></label></td>";
+                tabela += "</tr>";
+                tabela += "</table>";
+                $("#divMateria").append(tabela);
+            }
+        }
+    }
+
+    $("#cboAlunos").change(function ()
+    {
+        ListarMaterias(this.value);
+    });
+
+    $(document).ready(function ()
+    {
+        ListarAlunos();
+        ListarMaterias("");
+
+        DetalhesNotasAluno(1);
+    });
+    </script>
 </body>
 </html>

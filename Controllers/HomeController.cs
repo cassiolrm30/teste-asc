@@ -13,17 +13,16 @@ namespace simulador_periodos_academicos.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult SimulacaoMedias()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Titulo = "Simulação de Médias no Período";
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpGet]
+        public ActionResult DetalhesNotasAluno(string alunoId)
         {
-            ViewBag.Message = "Your contact page.";
-
+            ViewBag.Titulo = "Detalhes de Notas do Aluno";
             return View();
         }
     }

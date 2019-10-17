@@ -1,0 +1,31 @@
+﻿<h2 style="width:100%;text-align:center;padding:10px;font-family:Arial;font-weight:bold;text-decoration:underline;">@ViewBag.Titulo</h2>
+<input type="hidden" id="hidAluno" />
+<table style="font-family:Arial;font-size:13px;width:100%;padding:5px;" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td style="width:10%;"><label style="font-weight:bold;">Aluno: </label></td>
+        <td style="width:80%;">
+            <select id="cboAlunos" style="width:100%;">
+                <option value="">-- Selecione --</option>
+            </select>
+        </td>
+        <td style="width:10%;"><a href="#" onclick="ExibirDetalhesNotasAluno();"><div style="text-align:right;font-family:Arial;font-weight:bold;font-size:14px;" id="divDetalhesAluno">Detalhes</div></a></td>
+    </tr>
+    <tr><td colspan="3" style="height:20px;"></td></tr>
+    <tr>
+        <td colspan="3">
+            <fieldset id="fldMaterias" style="border:solid 0px;">
+                <div style="margin:0px;padding:0px;" id="divMateria">
+
+                </div>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align:right;height:40px;">
+            <div id="divSituacao">
+                <label style="font-weight:bold;" id="lblRotuloSituacao"></label>
+                <label style="font-weight:bold;" id="lblValorSituacao"></label>
+            </div>
+        </td>
+    </tr>
+</table>
