@@ -73,7 +73,7 @@
         $("#divMediaFinal-" + id_materia).html("");
         for (var i = 2; i <= 4; i++)
         {
-            var peso = parseFloat($("#divPeso-" + id_materia + "-" + i).html());
+            var peso = parseFloat($("#divPeso-" + id_materia + "-" + i).html().replace(",", "."));
             var nota = ($("#cboNota-" + id_materia + "-" + i).val() == "") ? 0 : parseFloat($("#cboNota-" + id_materia + "-" + i).val());
             var produto = peso * nota;
             $("#divPesoNota-" + id_materia + "-" + i).html(produto.toFixed(1).replace(".",","));
@@ -239,7 +239,7 @@
                             {
                                 tabela += "<tr style='background-color:#EEEEEE;height:25px;'>";
                                 tabela += "<td style='width:20%;'><label style='font-weight:bold;padding-left:5px;'>Prova " + (j - 1) + "</label></td>";
-                                tabela += "<td style=''><div id='divPeso-" + id + "-" + j + "'>" + item[j] + "</div></td>";
+                                tabela += "<td style=''><div id='divPeso-" + id + "-" + j + "'>" + item[j].replace(".", ",") + "</div></td>";
                                 tabela += "<td style=''><select id='cboNota-" + id + "-" + j + "' style='width:70px;' onchange='CalcularNotaPorPeso(" + id + ");'>";
                                 for (var k = 0; k <= 100; k++)
                                 {

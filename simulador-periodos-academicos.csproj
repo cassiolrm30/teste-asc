@@ -140,7 +140,9 @@
     <Compile Include="Models\Prova.cs" />
     <Compile Include="Models\Turma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AlunoRepositorio.cs" />
     <Compile Include="Repositories\MateriaRepositorio.cs" />
+    <Compile Include="Repositories\TurmaRepositorio.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

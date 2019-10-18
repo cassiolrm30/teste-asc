@@ -21,6 +21,7 @@ namespace simulador_periodos_academicos.Models
         [Column("situacao")]
         public bool Aprovado { get; set; }
 
+        public Turma Turma { get; set; }
         public List<Matricula> Matriculas { get; set; }
         public List<Avaliacao> Avaliacoes { get; set; }
     }

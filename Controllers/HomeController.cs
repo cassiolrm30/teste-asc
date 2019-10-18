@@ -1,4 +1,6 @@
-﻿using System;
+﻿using simulador_periodos_academicos.Models;
+using simulador_periodos_academicos.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +11,8 @@ namespace simulador_periodos_academicos.Controllers
 {
     public class HomeController : Controller
     {
+        public MateriaRepositorio _materiaRepositorio;
+
         public ActionResult Index()
         {
             return View();
@@ -39,6 +43,8 @@ namespace simulador_periodos_academicos.Controllers
         [HttpGet]
         public ActionResult ListarMateriasPesosNotas(string alunoId)
         {
+            _materiaRepositorio = new MateriaRepositorio(new Contexto());
+            IList<Materia> lista = _materiaRepositorio.GetAll();
             List<string> resultado = new List<string>();
             resultado.Add("1|MATÉRIA 1|1|1.5|2");
             resultado.Add("2|MATÉRIA 2|1|2|1");
